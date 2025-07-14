@@ -14,5 +14,10 @@ jobs:
         run: |
           git pull
 
+      - name: Restart PM2
+        run: |
+          pm2 restart all
+          pm2 save
+
       - name: Restart Nginx
         run: sudo systemctl restart nginx
