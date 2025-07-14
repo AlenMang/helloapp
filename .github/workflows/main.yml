@@ -1,10 +1,18 @@
-name: CI
+name: Auto Deploy and Restart Nginx
 
-on: [push]
+on:
+  push:
+    branches:
+      - '**' # trigger on push to any branch
 
 jobs:
-  build:
+  deploy:
     runs-on: self-hosted
+
     steps:
-      - uses: actions/checkout@v3
-      - run: echo "Hello from GitHub Actions"
+      - name: Pull latest changes
+        run: |
+          git pull
+
+      - name: Restart Nginx
+        run: sudo systemctl restart nginx
